@@ -7,6 +7,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import net.objecthunter.exp4j.ExpressionBuilder
 import java.lang.Exception
+import kotlin.math.sqrt
 
 class MainActivity : AppCompatActivity() {
 
@@ -63,6 +64,33 @@ class MainActivity : AppCompatActivity() {
                 Log.d("EXCEPTION", "Message: ${e.message}")
             }
 
+        }
+
+        actiondiv_x.setOnClickListener{
+            try {
+                //tutaj należy wprowadzić 1 podzielone przez input
+
+                answer.text = "1/${placeholder.text}"
+
+            }
+            catch(e: Exception) {
+                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+
+                Log.d("EXCEPTION", "Message: ${e.message}")
+            }
+        }
+
+        sqrt.setOnClickListener{
+            try {
+                var placeholder_to_int = Integer.valueOf(placeholder.toString())
+
+                answer.text = sqrt(placeholder_to_int.toDouble()).toString()
+            }
+            catch(e: Exception) {
+                android.widget.Toast.makeText(this, e.message, android.widget.Toast.LENGTH_SHORT).show()
+
+                android.util.Log.d("EXCEPTION", "Message: error!")
+            }
         }
 
 //        plus_minus.setOnClickListener {
