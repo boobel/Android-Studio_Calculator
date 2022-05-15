@@ -33,10 +33,6 @@ class MainActivity : AppCompatActivity() {
         actionMultiply.setOnClickListener { appendVal(" * ", false, false) }
         actionMinus.setOnClickListener { appendVal(" - ", false, false) }
         actionAdd.setOnClickListener { appendVal(" + ", false, false) }
-//        plus_minus.setOnClickListener {
-//            if(placeholder.text.toString().size() != )
-//        }
-//        sqrt.setOnClickListener{appendVal(" \u221a ", false)}
 
         actionBack.setOnClickListener {
             val expression = placeholder.text.toString()
@@ -68,9 +64,9 @@ class MainActivity : AppCompatActivity() {
 
         actiondiv_x.setOnClickListener{
             try {
-                //tutaj należy wprowadzić 1 podzielone przez input
+                //tutaj należy wprowadzić 1 podzielone przez input(ZROBIONE)
 
-                answer.text = "1/${placeholder.text}"
+                placeholder.text = "1/${placeholder.text}"
 
             }
             catch(e: Exception) {
@@ -82,25 +78,41 @@ class MainActivity : AppCompatActivity() {
 
         sqrt.setOnClickListener{
             try {
-                var placeholder_to_int = Integer.valueOf(placeholder.toString())
-
-                answer.text = sqrt(placeholder_to_int.toDouble()).toString()
+                placeholder.text = "sqrt(${placeholder.text})"
             }
             catch(e: Exception) {
                 android.widget.Toast.makeText(this, e.message, android.widget.Toast.LENGTH_SHORT).show()
 
-                android.util.Log.d("EXCEPTION", "Message: error!")
+                android.util.Log.d("EXCEPTION", "Message: sqrt error!")
             }
         }
 
-//        plus_minus.setOnClickListener {
-//            val expression = answer.text.toString().toDouble()
-//            if(expression > 0 )
-//            {
-//                answer.text.firs
-//            }
-//        }
+        actionModulo.setOnClickListener{
+            try {
+                placeholder.text = "${placeholder.text}" + "%"
+            }
+            catch(e: Exception) {
+                android.widget.Toast.makeText(this, e.message, android.widget.Toast.LENGTH_SHORT).show()
 
+                android.util.Log.d("EXCEPTION", "Message: sqrt error!")
+            }
+        }
+
+        plus_minus.setOnClickListener{
+            try {
+                if(Integer.parseInt(placeholder.text.toString()) > 0){
+                    placeholder.text = "-${placeholder.text}"
+                }
+                else{
+                    placeholder.text = "${placeholder.text.drop(1)}"
+                }
+            }
+            catch(e: Exception) {
+                android.widget.Toast.makeText(this, e.message, android.widget.Toast.LENGTH_SHORT).show()
+
+                android.util.Log.d("EXCEPTION", "Message: +- error!")
+            }
+        }
 
     }
 
