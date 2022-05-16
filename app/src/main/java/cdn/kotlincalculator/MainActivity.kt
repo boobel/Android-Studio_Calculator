@@ -7,6 +7,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import net.objecthunter.exp4j.ExpressionBuilder
 import java.lang.Exception
+import java.util.Vector
 import kotlin.math.sqrt
 
 class MainActivity : AppCompatActivity() {
@@ -14,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var memory =  Vector<String>();
 
         //Numbers
         num0.setOnClickListener { appendVal("0", false, true) }
@@ -111,6 +114,61 @@ class MainActivity : AppCompatActivity() {
                 android.widget.Toast.makeText(this, e.message, android.widget.Toast.LENGTH_SHORT).show()
 
                 android.util.Log.d("EXCEPTION", "Message: +- error!")
+            }
+        }
+
+        Memory_c.setOnClickListener {
+            memory.clear()
+        }
+
+        Memory_r.setOnClickListener {
+            try{
+                placeholder.append(memory.lastElement())
+                answer.text = memory.lastElement()
+                try {
+                    val expression = ExpressionBuilder(placeholder.text.toString()).build()
+                    val result = expression.evaluate()
+                    val longResult = result.toLong()
+                    if (result == longResult.toDouble()) {
+                        Toast.makeText(this, "Double", Toast.LENGTH_SHORT).show()
+                        answer.text = longResult.toString()
+                    } else
+                        answer.text = result.toString()
+
+                } catch (e: Exception) {
+                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show();
+
+                    Log.d("EXCEPTION", "Message: ${e.message}")
+                }
+
+            }
+            catch (e: Exception){
+                android.widget.Toast.makeText(this, e.message, android.widget.Toast.LENGTH_SHORT).show()
+
+                android.util.Log.d("EXCEPTION", "Message: Memory is empty!")
+            }
+        }
+
+        Memory_s.setOnClickListener {
+            try{
+                placeholder.append(memory.lastElement())
+                answer.text = memory.lastElement()
+            }
+            catch (e: Exception){
+                android.widget.Toast.makeText(this, e.message, android.widget.Toast.LENGTH_SHORT).show()
+
+                android.util.Log.d("EXCEPTION", "Message: Memory is empty!")
+            }
+        }
+
+        Memory_plus.setOnClickListener {
+            val answer_text = answer.text
+            memory.addElement(answer_text.toString())
+        }
+
+        Memory_minus.setOnClickListener {
+            if (!memory.isEmpty()) {
+                memory.removeAt(0)
             }
         }
 
